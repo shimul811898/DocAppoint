@@ -1,11 +1,11 @@
-import DashBoard from "@/components/Dashbord";
+import AppoinmentCard from "@/components/AppoinmentCard"
 
 export const dynamic = 'force-dynamic';
 
 const AllAppointpage = async () => {
     let bookappointments = [];
 
-    const res = await fetch('http://localhost:5000/bookappointment', { cache: 'no-store' });
+    const res = await fetch('http://localhost:5000/doctors', { cache: 'no-store' });
 
     bookappointments = await res.json();
 
@@ -16,23 +16,22 @@ const AllAppointpage = async () => {
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-12">
                     <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight sm:text-5xl">
-
+                        All Appointments
                     </h1>
                     <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
                         View and manage all booked doctor appointments. Find your scheduled consultations and care details.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    {bookappointments.map(appointment =>
-                        <DashBoard key={appointment._id} allAppoint={appointment} />)
-                    }
-                </div>
-
+               
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {bookappointments.map(appointment => 
+                            <AppoinmentCard key={appointment._id} allAppoint={appointment} />)
+                        }
+                    </div>
             </div>
         </main>
     )
 }
 
-export default AllAppointpage
-
+export default AllAppointpage;

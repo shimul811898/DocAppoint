@@ -32,19 +32,14 @@ const Navbar = () => {
           </li>
 
           <li>
-            <Link href="/allAppoint" className="hover:text-blue-600 transition">
+            <Link href="/all" className="hover:text-blue-600 transition">
               All Appointment
             </Link>
           </li>
 
           <li>
-            <Link href="/my-Profile" className="hover:text-blue-600 transition">
+            <Link href="/allAppoint" className="hover:text-blue-600 transition">
               Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link href="/bookappointment" className="hover:text-blue-600 transition">
-              Book Appoint
             </Link>
           </li>
         </ul>
