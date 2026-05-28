@@ -14,13 +14,15 @@ const AllAppointpage = async () => {
     return (
         <main className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-12">
-                    <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight sm:text-5xl">
-
-                    </h1>
-                    <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
-                        View and manage all booked doctor appointments. Find your scheduled consultations and care details.
-                    </p>
+                <div className="text-center mb-12 max-w-2xl mx-auto">
+                    <div className="border-b border-gray-200 pb-5">
+                        <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+                            Appointment Details & My Profile
+                        </h1>
+                        <p className=" text-gray-500 mt-2 max-w-md mx-auto">
+                            Manage your personal information and upcoming schedules seamlessly.
+                        </p>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

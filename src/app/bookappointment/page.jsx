@@ -1,5 +1,5 @@
 "use client";
-
+import { toast } from "react-hot-toast";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -35,7 +35,7 @@ const BookForm = () => {
 
     const data = await res.json();
     console.log(data);
-    alert("Appointment booked successfully!");
+    toast.success("Appointment booked successfully!");
   };
 
   const handleCancel = () => {

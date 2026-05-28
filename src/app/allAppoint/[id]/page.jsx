@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa6";
 import Link from "next/link";
 
+
 const AllAppointDetailspage = async ({ params }) => {
     const { id } = await params
     const res = await fetch(`http://localhost:5000/bookappointment/${id}`)
@@ -36,7 +37,7 @@ const AllAppointDetailspage = async ({ params }) => {
     const getFormattedTimeSlot = (timeString) => {
         if (!timeString) return { start: "N/A", end: "N/A" };
 
-        try {
+       
             const [time, modifier] = timeString.split(" ");
             let [hours, minutes] = time.split(":").map(Number);
 
@@ -54,9 +55,7 @@ const AllAppointDetailspage = async ({ params }) => {
                 start: startDate.toLocaleTimeString('en-US', options),
                 end: endDate.toLocaleTimeString('en-US', options)
             };
-        } catch (error) {
-            return { start: timeString, end: "N/A" };
-        }
+       
     };
 
     const { start: startTime, end: endTime } = getFormattedTimeSlot(availableTime);

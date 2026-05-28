@@ -1,5 +1,5 @@
 "use client";
-
+import { toast } from "react-hot-toast";
 import { useState } from "react";
 import {
     Button,
@@ -23,31 +23,29 @@ export function UpdateUserModal({ allAppoint }) {
         const formData = new FormData(e.target);
         const updatedData = Object.fromEntries(formData.entries());
 
-        try {
-            const res = await fetch(
-                `http://localhost:5000/appointments/${allAppoint?._id}`,
-                {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(updatedData),
-                }
-            );
 
-            const data = await res.json();
-
-            if (data.modifiedCount > 0) {
-                alert("Appointment updated successfully!");
-                setIsOpen(false);
-                router.refresh();
-            } else {
-                alert("No changes were made.");
+        const res = await fetch(
+            `http://localhost:5000/appointments/${allAppoint?._id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedData),
             }
-        } catch (error) {
-            console.error("Update failed:", error);
-            alert("Failed to update appointment.");
+        );
+
+        const data = await res.json();
+
+        if (data.modifiedCount > 0) {
+            toast.success("Appointment updated successfully!");
+            setIsOpen(false);
+            router.refresh();
+        } else {
+            toast.error("No changes were made.");
         }
+
+
     };
 
     return (
