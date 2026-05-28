@@ -8,21 +8,20 @@ const Navbar = () => {
   const router = useRouter();
 
   return (
-    // জাস্ট পুরো নেববারটাকে স্ক্রিনের মাঝখানে রাখার জন্য w-full mx-auto দেওয়া হয়েছে
     <div className="w-full shadow-md bg-white z-40">
       <nav className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between sm:space-y-0 space-y-4 px-6 py-2">
-        <div>
+        <div className="flex" >
           <Link href="/">
             <Image
-              src="/assets/Navlogo.png"
+              src="/assets/Navlogo.jpg"
               alt="NavLogo"
-              width={150}
-              height={150}
-              // এখানে h-auto এবং w-auto ক্লাসের কারণে টার্মিনালের ওই বিরক্তিকর ওয়ার্নিংটি আর আসবে না
-              className="h-auto w-auto" 
+              width={60}
+              height={60}
+              className="h-auto w-auto"
               priority
             />
           </Link>
+          <div className="my-auto font-bold text-[20px] -pl-6 -pt-3 " ><h2>DOC<span className="text-cyan-500" >APPOINT</span> </h2></div>
         </div>
         <ul className="flex items-center gap-6 font-medium text-gray-700 ">
           <li>

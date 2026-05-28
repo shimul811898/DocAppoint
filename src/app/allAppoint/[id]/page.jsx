@@ -7,7 +7,6 @@ import {
 } from "react-icons/fa6";
 import Link from "next/link";
 
-
 const AllAppointDetailspage = async ({ params }) => {
     const { id } = await params
     const res = await fetch(`http://localhost:5000/bookappointment/${id}`)
@@ -22,12 +21,15 @@ const AllAppointDetailspage = async ({ params }) => {
         experience,
         appointmentDate,
         description,
+        rating,
+        availableDate,
+        availableTime,
     } = bookappointments;
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50 py-12 px-4 md:px-10">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white shadow-2xl rounded-[40px] overflow-hidden border border-slate-100">
-
 
                     <div className="relative group overflow-hidden">
                         <img
@@ -53,7 +55,6 @@ const AllAppointDetailspage = async ({ params }) => {
                         </div>
                     </div>
 
-
                     <div className="p-8 md:p-12 flex flex-col justify-center">
                         <div className="space-y-8">
 
@@ -67,7 +68,6 @@ const AllAppointDetailspage = async ({ params }) => {
                                 </p>
                             </div>
 
-
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
 
                                 <div className="bg-slate-50 rounded-3xl p-5 border border-slate-100 hover:shadow-lg transition">
@@ -79,7 +79,7 @@ const AllAppointDetailspage = async ({ params }) => {
                                         <div>
                                             <p className="text-slate-500 text-sm">Doctor</p>
                                             <h3 className="font-bold text-slate-800">
-                                                Dr. {doctorName}
+                                                Dr. {doctorName} {rating && <span className="text-amber-500 ml-1">★ {rating}</span>}
                                             </h3>
                                         </div>
                                     </div>
@@ -126,19 +126,20 @@ const AllAppointDetailspage = async ({ params }) => {
                                                 Appointment Date
                                             </p>
                                             <h3 className="font-bold text-slate-800">
-                                                {appointmentDate}
+                                                {appointmentDate || availableDate}
                                             </h3>
+                                            {availableTime && (
+                                                <p className="text-xs text-emerald-600 font-medium mt-0.5">Time: {availableTime}</p>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-
                             <div className="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-[30px] p-8 text-white shadow-xl">
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <p className="text-cyan-100 mb-2">Consultation Fee</p>
-
                                         <h2 className="text-5xl font-black">${fee}</h2>
                                     </div>
 
@@ -147,7 +148,6 @@ const AllAppointDetailspage = async ({ params }) => {
                                     </div>
                                 </div>
                             </div>
-
 
                             <div>
                                 <h3 className="text-2xl font-bold text-slate-800 mb-4">
@@ -158,7 +158,8 @@ const AllAppointDetailspage = async ({ params }) => {
                                     {description}
                                 </p>
                             </div>
-                            <Link href="/bookappointment">
+
+                            <Link href={`/bookappointment?doctorName=${encodeURIComponent(doctorName)}`}>
                                 <div className="w-full mt-6">
                                     <button className="w-full relative overflow-hidden py-5 rounded-3xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 text-white font-bold text-lg shadow-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl active:scale-[0.98]">
                                         <span className="absolute inset-0 bg-white/10 opacity-0 hover:opacity-20 transition duration-500"></span>
@@ -176,4 +177,4 @@ const AllAppointDetailspage = async ({ params }) => {
     )
 }
 
-export default AllAppointDetailspage
+export default AllAppointDetailspage;

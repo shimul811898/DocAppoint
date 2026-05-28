@@ -1,5 +1,7 @@
 "use client";
 
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   FieldError,
   TextField,
@@ -11,7 +13,10 @@ import {
   Button,
 } from "@heroui/react";
 
-const BookPatientAppointment = () => {
+const BookForm = () => {
+  const searchParams = useSearchParams();
+  const doctorNameFromURL = searchParams.get("doctorName") || "";
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,6 +35,14 @@ const BookPatientAppointment = () => {
 
     const data = await res.json();
     console.log(data);
+    alert("Appointment booked successfully!");
+  };
+
+  const handleCancel = () => {
+    const confirmCancel = confirm("Are you sure you want to cancel?");
+    if (confirmCancel) {
+      document.querySelector("form").reset();
+    }
   };
 
   return (
@@ -39,7 +52,6 @@ const BookPatientAppointment = () => {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-
         <div className="md:col-span-2">
           <TextField name="patientName" isRequired>
             <Label>Patient Name</Label>
@@ -47,7 +59,6 @@ const BookPatientAppointment = () => {
             <FieldError />
           </TextField>
         </div>
-
 
         <TextField name="age" isRequired>
           <Label>Age</Label>
@@ -61,49 +72,49 @@ const BookPatientAppointment = () => {
           <FieldError />
         </TextField>
 
-
         <TextField name="email">
           <Label>Email</Label>
           <Input type="email" placeholder="example@gmail.com" className="rounded-2xl" />
           <FieldError />
         </TextField>
 
+        <Select name="gender" isRequired className="w-full" placeholder="Select Gender">
+          <Label>Gender</Label>
+          <Select.Trigger className="rounded-2xl">
+            <Select.Value />
+            <Select.Indicator />
+          </Select.Trigger>
+          <Select.Popover>
+            <ListBox>
+              <ListBox.Item id="Male" textValue="Male">Male</ListBox.Item>
+              <ListBox.Item id="Female" textValue="Female">Female</ListBox.Item>
+              <ListBox.Item id="Other" textValue="Other">Other</ListBox.Item>
+            </ListBox>
+          </Select.Popover>
+        </Select>
 
-        <div>
-          <Select
-            name="doctorName"
-            isRequired
-            className="w-full"
-            placeholder="Select Doctor"
-          >
-            <Label>Doctor</Label>
-
-            <Select.Trigger className="rounded-2xl">
-              <Select.Value />
-              <Select.Indicator />
-            </Select.Trigger>
-
-            <Select.Popover>
-              <ListBox>
-                <ListBox.Item id="Dr. John Smith" textValue="Dr. John Smith">
-                  Dr. John Smith
-                </ListBox.Item>
-
-                <ListBox.Item id="Dr. Sarah Ahmed" textValue="Dr. Sarah Ahmed">
-                  Dr. Sarah Ahmed
-                </ListBox.Item>
-
-                <ListBox.Item id="Dr. Ali Khan" textValue="Dr. Ali Khan">
-                  Dr. Ali Khan
-                </ListBox.Item>
-              </ListBox>
-            </Select.Popover>
-          </Select>
+       
+        <div className="md:col-span-2">
+          <TextField name="doctorName" isRequired>
+            <Label>Doctor Name</Label>
+            <Input
+              value={doctorNameFromURL}
+              readOnly
+              className="rounded-2xl bg-slate-100 cursor-not-allowed"
+            />
+            <FieldError />
+          </TextField>
         </div>
 
-        <TextField name="appointmentDate" type="date" isRequired>
+        <TextField name="date" isRequired>
           <Label>Appointment Date</Label>
           <Input type="date" className="rounded-2xl" />
+          <FieldError />
+        </TextField>
+
+        <TextField name="time" isRequired>
+          <Label>Appointment Time</Label>
+          <Input type="time" className="rounded-2xl" />
           <FieldError />
         </TextField>
 
@@ -117,16 +128,33 @@ const BookPatientAppointment = () => {
             <FieldError />
           </TextField>
         </div>
-
       </div>
 
-      <Button
-        type="submit"
-        className="w-full bg-cyan-500 text-white rounded-none"
-      >
-        Book Appointment
-      </Button>
+      <div className="flex gap-4">
+        <Button
+          type="submit"
+          className="w-full bg-cyan-500 text-white rounded-2xl py-3"
+        >
+          Book Appointment
+        </Button>
+
+        <Button
+          type="button"
+          onClick={handleCancel}
+          className="w-full bg-red-500 text-white rounded-2xl py-3"
+        >
+          Cancel
+        </Button>
+      </div>
     </form>
+  );
+};
+
+const BookPatientAppointment = () => {
+  return (
+    <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
+      <BookForm />
+    </Suspense>
   );
 };
 

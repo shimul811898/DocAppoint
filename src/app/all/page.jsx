@@ -7,9 +7,7 @@ const AllAppointpage = async () => {
 
     const res = await fetch('http://localhost:5000/doctors', { cache: 'no-store' });
 
-    bookappointments = await res.json();
-
-
+    bookappointments = await res.json().catch(() => []);
 
     return (
         <main className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
