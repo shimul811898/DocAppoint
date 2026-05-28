@@ -4,6 +4,7 @@ import {
     FaBriefcase,
     FaCalendarDays,
     FaMoneyBillWave,
+    FaClock,
 } from "react-icons/fa6";
 import Link from "next/link";
 
@@ -25,6 +26,40 @@ const AllAppointDetailspage = async ({ params }) => {
         availableDate,
         availableTime,
     } = bookappointments;
+
+    const formatDate = (dateString) => {
+        if (!dateString) return "N/A";
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    };
+
+    const getFormattedTimeSlot = (timeString) => {
+        if (!timeString) return { start: "N/A", end: "N/A" };
+
+        try {
+            const [time, modifier] = timeString.split(" ");
+            let [hours, minutes] = time.split(":").map(Number);
+
+            if (modifier === "PM" && hours < 12) hours += 12;
+            if (modifier === "AM" && hours === 12) hours = 0;
+
+            const startDate = new Date();
+            startDate.setHours(hours, minutes, 0, 0);
+
+            const endDate = new Date(startDate.getTime() + 60 * 60 * 1000);
+
+            const options = { hour: '2-digit', minute: '2-digit', hour12: true };
+
+            return {
+                start: startDate.toLocaleTimeString('en-US', options),
+                end: endDate.toLocaleTimeString('en-US', options)
+            };
+        } catch (error) {
+            return { start: timeString, end: "N/A" };
+        }
+    };
+
+    const { start: startTime, end: endTime } = getFormattedTimeSlot(availableTime);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50 py-12 px-4 md:px-10">
@@ -79,11 +114,12 @@ const AllAppointDetailspage = async ({ params }) => {
                                         <div>
                                             <p className="text-slate-500 text-sm">Doctor</p>
                                             <h3 className="font-bold text-slate-800">
-                                                Dr. {doctorName} {rating && <span className="text-amber-500 ml-1">★ {rating}</span>}
+                                                Dr. {doctorName}
                                             </h3>
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <div className="bg-slate-50 rounded-3xl p-5 border border-slate-100 hover:shadow-lg transition">
                                     <div className="flex items-center gap-4">
@@ -112,27 +148,44 @@ const AllAppointDetailspage = async ({ params }) => {
                                                 {experience ? (experience.toLowerCase().includes("years") ? experience : `${experience} Years`) : "N/A"}
                                             </h3>
                                         </div>
+
                                     </div>
+                                    <div className="  font-semibold text-xs bg-white mt-4 px-2.5 py-1.5 rounded-xl shadow-sm">
+                                        {rating && <p className="text-amber-500 ml-1"><span className="text-emerald-600 text-sm font-bold" >Rating:</span>   ★ {rating}</p>}
+                                    </div>
+
+
                                 </div>
 
-                                <div className="bg-slate-50 rounded-3xl p-5 border border-slate-100 hover:shadow-lg transition">
+
+                                <div className="bg-slate-50 rounded-3xl p-5 border border-slate-100 hover:shadow-lg transition flex flex-col justify-between gap-4">
                                     <div className="flex items-center gap-4">
                                         <div className="bg-emerald-100 p-4 rounded-2xl text-emerald-600 text-2xl">
                                             <FaCalendarDays />
                                         </div>
 
                                         <div>
-                                            <p className="text-slate-500 text-sm">
-                                                Appointment Date
-                                            </p>
+                                            <p className="text-slate-500 text-sm">Available Date</p>
                                             <h3 className="font-bold text-slate-800">
-                                                {appointmentDate || availableDate}
+                                                {formatDate(appointmentDate || availableDate)}
                                             </h3>
-                                            {availableTime && (
-                                                <p className="text-xs text-emerald-600 font-medium mt-0.5">Time: {availableTime}</p>
-                                            )}
                                         </div>
                                     </div>
+
+
+                                    {availableTime && (
+                                        <div className="flex flex-wrap gap-2 items-center bg-emerald-50/60 p-2.5 rounded-2xl border border-emerald-100/70">
+                                            <div className="flex items-center gap-1.5 text-emerald-700 font-semibold text-xs bg-white px-2.5 py-1.5 rounded-xl shadow-sm">
+                                                <FaClock className="text-xs text-emerald-600" />
+                                                <span>Start: {startTime}</span>
+                                            </div>
+                                            <div className="hidden sm:block text-emerald-400 font-bold text-xs">→</div>
+                                            <div className="flex items-center gap-1.5 text-indigo-700 font-semibold text-xs bg-white px-2.5 py-1.5 rounded-xl shadow-sm border border-indigo-50">
+                                                <FaClock className="text-xs text-indigo-500" />
+                                                <span>End: {endTime}</span>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
@@ -149,6 +202,7 @@ const AllAppointDetailspage = async ({ params }) => {
                                 </div>
                             </div>
 
+
                             <div>
                                 <h3 className="text-2xl font-bold text-slate-800 mb-4">
                                     About Doctor
@@ -158,7 +212,6 @@ const AllAppointDetailspage = async ({ params }) => {
                                     {description}
                                 </p>
                             </div>
-
                             <Link href={`/bookappointment?doctorName=${encodeURIComponent(doctorName)}`}>
                                 <div className="w-full mt-6">
                                     <button className="w-full relative overflow-hidden py-5 rounded-3xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 text-white font-bold text-lg shadow-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl active:scale-[0.98]">
