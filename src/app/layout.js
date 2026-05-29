@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
+import PageTransitionLoader from "@/components/PageTransitionLoader";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,14 +31,19 @@ export default function RootLayout({ children }) {
         <Navbar />
         {children}
         <Footer />
-          <Toaster
+        <Toaster
           position="top-center"
           reverseOrder={false}
         />
-
+        
+        {/* Global Page Transition 3D Spinner */}
+        <Suspense fallback={null}>
+          <PageTransitionLoader />
+        </Suspense>
       </body>
     </html>
   );
 }
+
 
 
