@@ -6,12 +6,10 @@ export const dynamic = 'force-dynamic';
 export const TopCard = async() => {
   let doctors = [];
 
-  try {
+  
     const res = await fetch('http://localhost:5000/doctors', { cache: 'no-store' });
     doctors = await res.json();
-  } catch (error) {
-    console.error("Failed to fetch doctors:", error);
-  }
+
 
   const topRated = doctors
     .sort((a, b) => b.rating - a.rating)

@@ -8,7 +8,7 @@ import { HiMenuAlt3, HiX } from "react-icons/hi";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  
+
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
@@ -60,56 +60,56 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center gap-4">
           {isPending ? (
-          <div className="flex flex-col items-center gap-2">
-            <Spinner size="sm" />
-            <span className="text-xs text-slate-400">Loading...</span>
-          </div>
-        ) : user ? (
-          <div className="flex items-center gap-4">
-            <div className="text-center">
-              <Link href="/my-Profile" className="cursor-pointer transition hover:scale-105 active:scale-95 block">
-                <Avatar>
-                  <Avatar.Image
-                    alt={user?.name || "User"}
-                    src={user?.image}
-                    referrerPolicy="no-referrer"
-                  />
+            <div className="flex flex-col items-center gap-2">
+              <Spinner size="sm" />
+              <span className="text-xs text-slate-400">Loading...</span>
+            </div>
+          ) : user ? (
+            <div className="flex items-center gap-4">
+              <div className="text-center">
+                <Link href="/my-Profile" className="cursor-pointer transition hover:scale-105 active:scale-95 block">
+                  <Avatar>
+                    <Avatar.Image
+                      alt={user?.name || "User"}
+                      src={user?.image}
+                      referrerPolicy="no-referrer"
+                    />
 
-                  <Avatar.Fallback>{user?.name?.[0] || "U"}</Avatar.Fallback>
-                </Avatar>
+                    <Avatar.Fallback>{user?.name?.[0] || "U"}</Avatar.Fallback>
+                  </Avatar>
+                </Link>
+              </div>
+
+              <button
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold shadow-[0_4px_15px_rgba(30,99,255,0.2)] hover:shadow-[0_6px_20px_rgba(30,99,255,0.3)] hover:-translate-y-0.5 active:scale-95 transition-all duration-300"
+                onClick={async () => await authClient.signOut()} >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              <Image
+                src="/assets/Avater.jpg"
+                alt="User Avatar"
+                width={40}
+                height={40}
+                className="rounded-full border"
+              />
+              <Link
+                href="/login"
+                className="px-5 py-2.5 rounded-xl font-bold text-slate-700 hover:text-blue-600 hover:bg-slate-50 transition duration-300"
+              >
+                Login
+              </Link>
+
+              <Link
+                href="/signup"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold shadow-[0_4px_15px_rgba(30,99,255,0.2)] hover:shadow-[0_6px_20px_rgba(30,99,255,0.3)] hover:-translate-y-0.5 active:scale-95 transition-all duration-300"
+              >
+                Register
               </Link>
             </div>
-
-            <button
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold shadow-[0_4px_15px_rgba(30,99,255,0.2)] hover:shadow-[0_6px_20px_rgba(30,99,255,0.3)] hover:-translate-y-0.5 active:scale-95 transition-all duration-300"
-              onClick={async () => await authClient.signOut()} >
-              Logout
-            </button>
-          </div>
-        ) : (
-          <div className="flex items-center gap-3">
-            <Image
-              src="/assets/Avater.jpg"
-              alt="User Avatar"
-              width={40}
-              height={40}
-              className="rounded-full border"
-            />
-            <Link
-              href="/login"
-              className="px-5 py-2.5 rounded-xl font-bold text-slate-700 hover:text-blue-600 hover:bg-slate-50 transition duration-300"
-            >
-              Login
-            </Link>
-
-            <Link
-              href="/signup"
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold shadow-[0_4px_15px_rgba(30,99,255,0.2)] hover:shadow-[0_6px_20px_rgba(30,99,255,0.3)] hover:-translate-y-0.5 active:scale-95 transition-all duration-300"
-            >
-              Register
-            </Link>
-          </div>
-        )}
+          )}
         </div>
 
         <div className="md:hidden flex items-center">
@@ -155,17 +155,7 @@ const Navbar = () => {
                 Dashboard
               </Link>
             </li>
-            {user && (
-              <li>
-                <Link
-                  href="/my-Profile"
-                  onClick={() => setIsOpen(false)}
-                  className="block py-2 hover:text-blue-600 transition"
-                >
-                  My Profile
-                </Link>
-              </li>
-            )}
+           
           </ul>
 
           <div className="w-full h-px bg-slate-100 my-2" />
@@ -192,7 +182,7 @@ const Navbar = () => {
                     setIsOpen(false);
                     await authClient.signOut();
                   }}
-                  className="w-full py-3 rounded-xl font-bold text-center text-white bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 shadow-md active:scale-[0.98] transition"
+                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold shadow-[0_4px_15px_rgba(30,99,255,0.2)] hover:shadow-[0_6px_20px_rgba(30,99,255,0.3)] hover:-translate-y-0.5 active:scale-95 transition-all duration-300"
                 >
                   Logout
                 </button>

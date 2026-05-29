@@ -9,6 +9,7 @@ export default function Home() {
      <Banner />
      <TopCard />
      <Instructions />
+     
     </div>
   );
 }
