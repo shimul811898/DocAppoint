@@ -40,7 +40,7 @@ const DashBoard = ({ allAppoint }) => {
 
 
       <div className="space-y-2 text-sm text-slate-600">
-        <p className="font-bold" ><span>patientName:</span>{patientName} </p>
+        <p className="font-bold" ><span>PatientName:</span>{patientName} </p>
         <p><span className="font-semibold">Email:</span>{email}</p>
         <p><span className="font-semibold">Doctor:</span> {doctorName}</p>
         <p><span className="font-semibold">Gender:</span> {gender}</p>

@@ -1,11 +1,11 @@
 import { Tabs } from "@heroui/react";
-import AppoinmentInfo from "./AllAppointpage/page";
 import Profile from "../my-Profile/page";
+import AppoinmentInfo from "./Tabs/page";
 
 export const AllAppointpage = () => {
   return (
     <main className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
-      
+
       <div className="max-w-7xl mx-auto">
 
         <div className="text-center mb-12 max-w-2xl mx-auto">
@@ -24,25 +24,32 @@ export const AllAppointpage = () => {
 
           <Tabs className="w-full">
 
-          
+
             <Tabs.ListContainer className="w-fit mb-6">
-              <Tabs.List aria-label="Options">
-
-                <Tabs.Tab id="overview" className="px-5 py-2">
-                  Application
+              <Tabs.List
+                aria-label="Options"
+                className="flex-nowrap gap-2"
+              >
+                <Tabs.Tab
+                  id="overview"
+                  className="px-5 py-2 whitespace-nowrap"
+                >
+                  My Booking
                   <Tabs.Indicator />
                 </Tabs.Tab>
 
-                <Tabs.Tab id="analytics" className="px-5 py-2">
+                <Tabs.Tab
+                  id="analytics"
+                  className="px-5 py-2 whitespace-nowrap"
+                >
                   <Tabs.Separator />
-                  Porfile
+                  My Profile
                   <Tabs.Indicator />
                 </Tabs.Tab>
-
               </Tabs.List>
             </Tabs.ListContainer>
 
-          
+
             <Tabs.Panel className="w-full" id="overview">
               <AppoinmentInfo />
             </Tabs.Panel>
