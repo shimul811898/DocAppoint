@@ -118,8 +118,7 @@ const LoginPage = () => {
                         </div>
 
                         <p className="text-sm text-red-500 mt-1">
-                            {errors.password?.required
-                            }
+                            {errors.password?.message}
                         </p>
 
                         <p
