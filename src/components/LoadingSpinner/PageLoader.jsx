@@ -70,88 +70,10 @@ export default function PageLoader() {
         WebkitBackdropFilter: "blur(5px)",
       }}
     >
-      <div className="cube-scene">
-        <div className="cube">
-          <div className="cube-face cube-front" />
-          <div className="cube-face cube-back" />
-          <div className="cube-face cube-left" />
-          <div className="cube-face cube-right" />
-          <div className="cube-face cube-top" />
-          <div className="cube-face cube-bottom" />
-        </div>
+      <div className="flex flex-col items-center gap-2">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600" />
+        <span className="text-xs text-slate-500">Loading...</span>
       </div>
-
-      <div style={{ marginTop: "36px", textAlign: "center" }}>
-        <p
-          style={{
-            margin: 0,
-            fontWeight: 800,
-            fontSize: "1.4rem",
-            letterSpacing: "-0.02em",
-            color: "#0f172a",
-          }}
-        >
-          Doc
-          <span
-            style={{
-              background: "linear-gradient(90deg, #06b6d4 0%, #3b82f6 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Appoint
-          </span>
-        </p>
-        <p
-          style={{
-            margin: "6px 0 0 0",
-            fontSize: "0.72rem",
-            color: "#94a3b8",
-            fontWeight: 600,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-          }}
-        >
-          Loading...
-        </p>
-      </div>
-
-      <style>{`
-        .cube-scene {
-          perspective: 300px;
-          width: 72px;
-          height: 72px;
-        }
-        .cube {
-          width: 72px;
-          height: 72px;
-          position: relative;
-          transform-style: preserve-3d;
-          animation: cube-flip 1.6s ease-in-out infinite;
-        }
-        .cube-face {
-          position: absolute;
-          width: 72px;
-          height: 72px;
-          border-radius: 10px;
-          border: 3px solid rgba(255,255,255,0.6);
-        }
-        .cube-front  { background: linear-gradient(135deg,#3b82f6,#06b6d4); transform: translateZ(36px); }
-        .cube-back   { background: linear-gradient(135deg,#6366f1,#3b82f6); transform: rotateY(180deg) translateZ(36px); }
-        .cube-left   { background: linear-gradient(135deg,#06b6d4,#6366f1); transform: rotateY(-90deg) translateZ(36px); }
-        .cube-right  { background: linear-gradient(135deg,#3b82f6,#8b5cf6); transform: rotateY(90deg)  translateZ(36px); }
-        .cube-top    { background: linear-gradient(135deg,#38bdf8,#3b82f6); transform: rotateX(90deg)  translateZ(36px); }
-        .cube-bottom { background: linear-gradient(135deg,#6366f1,#06b6d4); transform: rotateX(-90deg) translateZ(36px); }
-
-        @keyframes cube-flip {
-          0%   { transform: rotateX(0deg)   rotateY(0deg);   }
-          25%  { transform: rotateX(90deg)  rotateY(90deg);  }
-          50%  { transform: rotateX(180deg) rotateY(180deg); }
-          75%  { transform: rotateX(270deg) rotateY(270deg); }
-          100% { transform: rotateX(360deg) rotateY(360deg); }
-        }
-      `}</style>
     </div>
   );
 }

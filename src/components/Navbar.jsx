@@ -155,7 +155,7 @@ const Navbar = () => {
                 Dashboard
               </Link>
             </li>
-           
+
           </ul>
 
           <div className="w-full h-px bg-slate-100 my-2" />

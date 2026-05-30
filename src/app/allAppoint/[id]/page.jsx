@@ -7,11 +7,21 @@ import {
     FaClock,
 } from "react-icons/fa6";
 import Link from "next/link";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 
 const AllAppointDetailspage = async ({ params }) => {
-    const { id } = await params
-    const res = await fetch(`http://localhost:5000/bookappointment/${id}`)
+    const { id } = await params;
+    const {token} = await auth.api.getToken({
+        headers: await headers()
+    })
+
+    const res = await fetch(`http://localhost:5000/bookappointment/${id}`,{
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    })
     const bookappointments = await res.json();
 
     const {
