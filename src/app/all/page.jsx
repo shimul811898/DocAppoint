@@ -9,7 +9,7 @@ const AllAppointpage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     useEffect(() => {
         const fetchData = async () => {
-            const res = await fetch('http://localhost:5000/doctors', { cache: 'no-store' });
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/doctors`, { cache: 'no-store' });
             const data = await res.json().catch(() => []);
             setBookappointments(data);
         };

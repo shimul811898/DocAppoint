@@ -1,4 +1,5 @@
 "use client";
+
 import { toast } from "react-hot-toast";
 import { useState } from "react";
 import {
@@ -12,40 +13,50 @@ import {
 } from "@heroui/react";
 import { User } from "lucide-react";
 import { FaUserEdit } from "react-icons/fa";
-import { useRouter } from "next/navigation";
 
-export function UpdateUserModal({ allAppoint }) {
-    const router = useRouter();
+export function UpdateUserModal({ allAppoint, onUpdateSuccess }) {
     const [isOpen, setIsOpen] = useState(false);
 
     const onSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        const updatedData = Object.fromEntries(formData.entries());
+        const formFields = Object.fromEntries(formData.entries());
 
+        
+        const updatedData = {
+            ...allAppoint,
+            ...formFields,
+        };
 
-        const res = await fetch(
-            `http://localhost:5000/appointments/${allAppoint?._id}`,
-            {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(updatedData),
+        try {
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/appointments/${allAppoint?._id}`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formFields),
+                }
+            );
+
+            const data = await res.json();
+
+            if (data.modifiedCount > 0 || res.ok) {
+                toast.success("Appointment updated successfully!");
+                setIsOpen(false);
+                
+                
+                if (onUpdateSuccess) {
+                    onUpdateSuccess(updatedData);
+                }
+            } else {
+                toast.error("No changes were made.");
             }
-        );
-
-        const data = await res.json();
-
-        if (data.modifiedCount > 0) {
-            toast.success("Appointment updated successfully!");
-            setIsOpen(false);
-            router.refresh();
-        } else {
-            toast.error("No changes were made.");
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to update appointment");
         }
-
-
     };
 
     return (
@@ -153,7 +164,6 @@ export function UpdateUserModal({ allAppoint }) {
                                             >
                                                 Cancel
                                             </Button>
-
                                             <Button type="submit">Save</Button>
                                         </Modal.Footer>
                                     </form>

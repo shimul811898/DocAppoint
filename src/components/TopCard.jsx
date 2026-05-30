@@ -7,7 +7,7 @@ export const TopCard = async() => {
   let doctors = [];
 
   
-    const res = await fetch('http://localhost:5000/doctors', { cache: 'no-store' });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/doctors`, { cache: 'no-store' });
     doctors = await res.json();
 
 

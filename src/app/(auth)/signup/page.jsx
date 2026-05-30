@@ -17,7 +17,7 @@ const signUpPage = () => {
 
 
     const handleLoginFunc = async (data) => {
-        console.log(data);
+        // console.log(data);
 
         const { email, name, photo, password } = data;
 

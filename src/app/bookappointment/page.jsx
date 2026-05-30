@@ -23,9 +23,9 @@ const BookForm = () => {
     const formData = new FormData(e.currentTarget);
     const appointment = Object.fromEntries(formData.entries());
 
-    console.log(appointment);
+    // console.log(appointment);
 
-    const res = await fetch("http://localhost:5000/patient-appointment", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/patient-appointment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const BookForm = () => {
     });
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     toast.success("Appointment booked successfully!");
   };
 

@@ -12,7 +12,7 @@ const Navbar = () => {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
-  console.log(user, "user")
+  // console.log(user, "user")
 
   return (
     <div className="w-full  sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-[0_2px_20px_rgba(0,0,0,0.02)]">

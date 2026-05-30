@@ -16,7 +16,7 @@ const AppoinmentInfo = () => {
             setLoading(true);
             try {
                 const res = await fetch(
-                    `http://localhost:5000/bookappointment?email=${encodeURIComponent(session.user.email)}`,
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/bookappointment?email=${encodeURIComponent(session.user.email)}`,
                     { cache: "no-store" }
                 );
                 const data = await res.json();

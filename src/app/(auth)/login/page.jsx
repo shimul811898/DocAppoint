@@ -39,15 +39,15 @@ const LoginPage = () => {
             const data = await authClient.signIn.social({
                 provider: "google",
             });
-            console.log(data, "data")
+            // console.log(data, "data")
 
             toast.success("Google login successful");
 
-            console.log(data, "data");
+            // console.log(data, "data");
         }
         catch (error) {
             toast.error("Google login failed");
-            console.log(error);
+            // console.log(error);
         }
 
 
